@@ -1,5 +1,6 @@
 
 unused_code/
+legacy/
 *.csv
 *.xlsx
 *.asv
