@@ -143,9 +143,7 @@ if true
         gvkey = g_(i_g);
         fname = [num2str(gvkey), '.png'];
         
-        fpath = fullfile(...
-            '/home/oren/Documents/MATLAB/TASE/stage1/gfx',...
-            fname);
+        fpath = fullfile(root, 'stage1', 'gfx', fname);
 
         plot(stage1.max_date(idx), stage1.beta_1(idx), 'b-')
         %plot(stage1.max_date(idx), stage1.beta_1_int1(idx), 'b--')

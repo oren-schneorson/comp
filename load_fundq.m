@@ -4,12 +4,14 @@ function [T] = load_fundq(gvkey, fx_daily, data_dir)
 
 % to be able to not input data_dir
 if nargin < 3
-    data_dir = '/media/u70o/D/data/comp/fundq';
+    username = getenv("USER")
+    data_dir = fullfile('/media', username, 'D', 'data', 'comp', 'fundq');
 end
 
 % to be able to input just data_dir='fundq' or 'g_fundq'
 if isempty(fileparts(data_dir))
-    data_dir = fullfile('/media/u70o/D/data/comp', data_dir);
+    username = getenv("USER")
+    data_dir = fullfile('/media', username, 'D', 'data', 'comp', data_dir);
 end
     
 fname = [char(gvkey), '.csv'];

@@ -17,22 +17,32 @@ libs = {'lib_g', 'lib_na'};
 run('var_types.m')
 ME = '';
 
-if isempty(Ccy)
+if ~exist('username', 'var') || isempty(username)
+    username = getenv("USER");
+end
+
+if ~exist('lib_data', 'var') || strcmp(lib_data, '')
+    lib_data = fullfile('/media', username, 'D', 'data');
+end
+
+
+if ~exist('comp_dir', 'var') || strcmp(comp_dir, '')
+    comp_dir = fullfile(lib_data, 'comp');
+end
+
+
+if ~exist('CDS_dir', 'var') || strcmp(CDS_dir, '')
+    comp_dir = fullfile(lib_data, 'CDS');
+end
+
+if ~exist('Ccy', 'var') || isempty(Ccy)
     Ccy = 'USD';
 end
 
-if isempty(DocClause)
+
+if ~exist('DocClause', 'var') || isempty(DocClause)
     DocClause = 'CR14';
 end
-
-if strcmp(comp_dir, '')
-	comp_dir = '/media/oren/D/data/comp';
-end
-
-if strcmp(CDS_dir, '')
-	CDS_dir = '/media/oren/D/data/CDS';
-end
-
 
 
 if numel(fundq_vars) == 0

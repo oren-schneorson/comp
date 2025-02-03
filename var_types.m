@@ -3,8 +3,16 @@
 Variables types mapping
 ***************************************************************************
 %}
-if ~exist('lib_comp', 'var')
-    lib_comp = '/media/oren/D/data/comp';
+
+if ~exist('username', 'var') || isempty(username)
+    username = getenv("USER");
+end
+if ~exist('lib_data', 'var') || strcmp(lib_data, '')
+    lib_data = fullfile('/media', username, 'D', 'data');
+end
+
+if ~exist('comp_dir', 'var') || strcmp(comp_dir, '')
+    comp_dir = fullfile(lib_data, 'comp');
 end
 
 c_dir = fullfile(lib_comp, 'var_type');

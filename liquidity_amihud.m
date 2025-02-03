@@ -6,15 +6,13 @@ The first step in implementing the Merton DD model is to estimate sigma_E from
 either historical stock returns data or from option-implied volatility data.
 %}
 
-addpath('/home/oren/Documents/MATLAB/altmany-export_fig-410f0ad')
-addpath('/home/oren/Documents/MATLAB/my_functions')
-
 % set root
+username = getenv("USER");
 root = mfilename('fullpath');
 if contains(root, 'LiveEditor') || numel(root) == 0
     % in case you're running via LiveEditor, default to root
     % change this line if running on a different system
-    root = '/home/oren/Documents/MATLAB/comp';
+    root = fullfile('/home', username, 'Documents/MATLAB/comp');
     cd(root)
     
 else
@@ -24,8 +22,15 @@ end
 cd(root)
 
 
+addpath(fullfile('/home', username, 'Documents', 'MATLAB', 'altmany-export_fig-410f0ad'))
+addpath(fullfile('/home', username, 'Documents', 'MATLAB', 'my_functions'))
+
+
 glob = '';
-comp_dir = '/media/oren/D/data/comp';
+
+lib_data = fullfile('/media', username, 'D', 'data');
+comp_dir = fullfile(lib_data, 'comp');
+
 liquidity_dir = fullfile(comp_dir, [glob, 'liquidity'], 'amihud');
 secd_dir = fullfile(comp_dir, [glob, 'secd']);
 secd_proc_dir = fullfile(comp_dir, [glob, 'secd_proc']);
@@ -65,7 +70,7 @@ query_mode = false;
 query = '025056';
 
 %
-fpath = '/home/oren/PycharmProjects/comp/gvkey_set_lctq.csv';
+fpath = fullfile('/home', username, 'PycharmProjects', 'comp', 'gvkey_set_lctq.csv');
 opts = detectImportOptions(fpath);
 opts.VariableTypes = {'char'};
 gvks = readtable(fpath, opts);

@@ -24,27 +24,42 @@ and tracked
 %}
 clear; clc
 
+% set root
+username = getenv("USER");
+root = mfilename('fullpath');
+if contains(root, 'LiveEditor') || numel(root) == 0
+    % in case you're running via LiveEditor, default to root
+    % change this line if running on a different system
+    root = fullfile('/home', username, 'Documents/MATLAB/comp');
+    cd(root)
+    
+else
+    root = fileparts(root);
+end
+
+cd(root)
+
+
 comp = 'comp';
 fundq = 'g_fundq';
 
-matlab_dir = '/home/u70o/Documents/MATLAB';
-data_dir = '/media/u70o/D/data';
-temp_data_dir = '/media/u70o/D/data_temp4backup';
+matlab_dir = fullfile('/home', username, 'Documents', 'MATLAB');
+lib_data = fullfile('/media', username, 'D', 'data');
+temp_lib_data = fullfile('/media', username, 'D', 'data_temp4backup');
 
 
-root = fullfile(matlab_dir, comp);
-comp_dir = fullfile(temp_data_dir, comp);
+comp_dir = fullfile(lib_data, comp);
+% comp_dir = fullfile(temp_lib_data, comp);
 fundq_dir = fullfile(comp_dir, fundq);
 fig_dir = fullfile(root, 'gfx', 'fundq');
 
 addpath(fullfile(matlab_dir, 'my_functions'))
 addpath(fullfile(matlab_dir, 'altmany-export_fig-410f0ad'))
 
-cd (root)
 
 
 
-fx_daily_fpath = fullfile(data_dir, 'fx', 'fx_daily.csv');
+fx_daily_fpath = fullfile(lib_data, 'fx', 'fx_daily.csv');
 fx_daily = readtable(fx_daily_fpath);
 
 %%

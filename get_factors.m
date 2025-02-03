@@ -21,6 +21,9 @@ model = 'inflation';
 nptiles = 10;
 bp_Epi = {[1:nptiles-1]*100/nptiles};
 
+PycharmProjects_dir = fullfile('/home', username, 'PycharmProjects');
+
+
 
 [ret_idx_ew_Epi, ret_idx_Epi, xret_idx_ew_Epi, xret_idx_Epi,...
     GroupCount_Epi,...
@@ -456,7 +459,7 @@ aux = mat2cell(aux, size(aux, 1), ones(1, size(aux, 2)));
 tab = table(aux{:},...
     'VariableNames', VariableNames,...
     'RowNames', RowNames);
-fpath = '/home/oren/PycharmProjects/Stocks_inflation/data_tab4.csv';
+fpath = fullfile(PycharmProjects_dir, 'Stocks_inflation', 'data_tab4.csv');
 writetable(tab, fpath, 'WriteRowNames', true)
 
 subplot(1,2,2)
@@ -597,7 +600,7 @@ sharpe = (mean_ret_beta(end)-mean_ret_beta(1)-mean(aux{:,end}))./...
 tab.HML = [B(1); B(2); t(1); t(2); N; STATS(1); mean_GroupCount(1)+mean_GroupCount(end); sharpe; mean_ret{1, end}-mean_ret{1, 1}];
 
 
-fpath = '/home/oren/PycharmProjects/Stocks_inflation/data_tab5.csv';
+fpath = fullfile(PycharmProjects_dir, 'Stocks_inflation', 'data_tab5.csv');
 writetable(tab, fpath, 'WriteRowNames', true)
 
 
@@ -663,7 +666,8 @@ aux = mat2cell(aux, size(aux, 1), ones(1, size(aux, 2)));
 tab = table(aux{:},...
     'VariableNames', VariableNames,...
     'RowNames', RowNames);
-fpath = '/home/oren/PycharmProjects/Stocks_inflation/data_tab4.csv';
+
+fpath = fullfile(PycharmProjects_dir, 'Stocks_inflation', 'data_tab4.csv');
 writetable(tab, fpath, 'WriteRowNames', true)
 
 subplot(1,2,2)

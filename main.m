@@ -22,11 +22,12 @@ Quality checks:
 
 
 % set root
+username = getenv("USER");
 root = mfilename('fullpath');
 if contains(root, 'LiveEditor') || numel(root) == 0
     % in case you're running via LiveEditor, default to root
     % change this line if running on a different system
-    root = '/home/oren/Documents/MATLAB/comp';
+    root = fullfile('/home', username, 'Documents', 'MATLAB', 'comp');
     cd(root)
     
 else

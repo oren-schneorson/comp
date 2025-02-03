@@ -15,8 +15,18 @@ libs = {'lib_g', 'lib_na'};
 
 run('var_types.m')
 ME = '';
-if strcmp(comp_dir, '')
-	comp_dir = '/media/oren/D/data/comp';
+
+if ~exist('username', 'var') || isempty(username)
+    username = getenv("USER");
+end
+
+if ~exist('lib_data', 'var') || strcmp(lib_data, '')
+    lib_data = fullfile('/media', username, 'D', 'data');
+end
+
+
+if ~exist('comp_dir', 'var') || strcmp(comp_dir, '')
+    comp_dir = fullfile(lib_data, 'comp');
 end
 
 if numel(fundq_vars) == 0

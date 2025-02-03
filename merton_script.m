@@ -6,19 +6,34 @@ The first step in implementing the Merton DD model is to estimate sigma_E from
 either historical stock returns data or from option-implied volatility data.
 %}
 
-addpath('/home/u70o/Documents/MATLAB/altmany-export_fig-410f0ad')
-addpath('/home/u70o/Documents/MATLAB/my_functions')
+% set root
+username = getenv("USER");
+root = mfilename('fullpath');
+if contains(root, 'LiveEditor') || numel(root) == 0
+    % in case you're running via LiveEditor, default to root
+    % change this line if running on a different system
+    root = fullfile('/home', username, 'Documents/MATLAB/comp');
+    cd(root)
+    
+else
+    root = fileparts(root);
+end
 
-lib_data = '/media/u70o/D/data_temp4backup';
+cd(root)
+
+
+addpath(fullfile('/home', username, 'Documents', 'MATLAB', 'altmany-export_fig-410f0ad'))
+addpath(fullfile('/home', username, 'Documents', 'MATLAB', 'my_functions'))
+
 glob = '';
+
+lib_data = fullfile('/media', username, 'D', 'data');
 comp_dir = fullfile(lib_data, 'comp');
 secd_proc_dir = fullfile(comp_dir, [glob, 'secd_proc']);
 fig_dir = fullfile(comp_dir, 'figs', [glob, 'merton']);
 merton_dir = fullfile(comp_dir, [glob, 'merton']);
 fundq_proc_dir = fullfile(comp_dir, [glob, 'fundq']);
 
-root = '/home/u70o/Documents/MATLAB/comp';
-cd(root)
 
 
 load handel.mat;
@@ -54,8 +69,8 @@ query_mode = true;
 
 
 query = '157373';
-%fpath_queries = '/home/u70o/PycharmProjects/comp/gvkey_lists/queries.csv';
-fpath_queries = '/home/u70o/Documents/MATLAB/measuring_rollover_risk/err1.xlsx';
+%fpath_queries = fullfile('/home', username, 'PycharmProjects', 'comp', 'gvkey_lists', 'queries.csv');
+fpath_queries = fullfile('/home', username, 'Documents', 'MATLAB', 'measuring_rollover_risk', 'err1.xlsx');
 opts = detectImportOptions(fpath_queries);
 opts.VariableTypes = {'char'};
 queries = readtable(fpath_queries, opts);
@@ -63,7 +78,7 @@ queries = readtable(fpath_queries, opts);
 
 
 
-fpath = '/media/u70o/D/data/ir/DGS1.csv';
+fpath = fullfile(lib_data, 'ir', 'DGS1.csv');
 DGS1 = readtable(fpath);
 DGS1 = renamevars(DGS1, 'DATE', 'datadate');
 DGS1 = table2timetable(DGS1);
@@ -92,7 +107,7 @@ end
     
 
 
-fpath = '/home/u70o/PycharmProjects/comp/gvkey_set_lctq.csv';
+fpath = fullfile('/home', username, 'PycharmProjects', 'comp', 'gvkey_set_lctq.csv')
 opts = detectImportOptions(fpath);
 opts.VariableTypes = {'char'};
 gvks = readtable(fpath, opts);

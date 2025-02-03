@@ -1,5 +1,24 @@
 clear; clc
 
+% set root
+username = getenv("USER");
+root = mfilename('fullpath');
+if contains(root, 'LiveEditor') || numel(root) == 0
+    % in case you're running via LiveEditor, default to root
+    % change this line if running on a different system
+    root = fullfile('/home', username, 'Documents/MATLAB/comp');
+    cd(root)
+    
+else
+    root = fileparts(root);
+end
+
+cd(root)
+
+
+addpath(fullfile('/home', username, 'Documents', 'MATLAB', 'altmany-export_fig-410f0ad'))
+addpath(fullfile('/home', username, 'Documents', 'MATLAB', 'my_functions'))
+
 
 %{
 Load data
@@ -10,12 +29,10 @@ plot_gvkey = false;
 vol = 'uncond_vol';
 mu = 5;
 
-addpath('/home/oren/Documents/MATLAB/altmany-export_fig-410f0ad')
-addpath('/home/oren/Documents/MATLAB/my_functions')
-root = '/home/oren/Documents/MATLAB/comp';
-cd(root)
 
-comp_dir = '/media/oren/D/data/comp';
+lib_data = fullfile('/media', username, 'D', 'data');
+comp_dir = fullfile(lib_data, 'comp');
+
 secd_proc_dir = fullfile(comp_dir, [glob, 'secd_proc']);
 merton_dir = fullfile(comp_dir, [glob, 'merton']);
 merton_CDS_dir = fullfile(comp_dir, [glob, 'merton_CDS']);

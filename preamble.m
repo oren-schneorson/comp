@@ -16,8 +16,8 @@ dictionary for heb
 %}
 
 % for using export_fig function to produce charts
-addpath('/home/oren/Documents/MATLAB/altmany-export_fig-410f0ad')
-addpath('/home/oren/Documents/MATLAB/my_functions')
+addpath(fullfile('/home', username, 'Documents', 'MATLAB', 'altmany-export_fig-410f0ad'))
+addpath(fullfile('/home', username, 'Documents', 'MATLAB', 'my_functions'))
 
 FontName = 'Utopia'; % Font
 
@@ -26,7 +26,7 @@ gvkey_typs = {'Ordinary Share'}; % Ordinary Share by default
 fname = 'equity';
 % Note: change fname accordingly!
 
-lib_data = '/media/oren/D/data'; % main directory of SM data
+lib_data = fullfile('/media', username, 'D/data'); % main directory of SM data
 lib_comp = fullfile(lib_data, 'comp'); % main directory of SM data
 
 if strcmp(freq, 'D')

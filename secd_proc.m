@@ -7,6 +7,22 @@ Preliminaries
 ***************************************************************************
 %}
 
+% set root
+username = getenv("USER");
+root = mfilename('fullpath');
+if contains(root, 'LiveEditor') || numel(root) == 0
+    % in case you're running via LiveEditor, default to root
+    % change this line if running on a different system
+    root = fullfile('/home', username, 'Documents/MATLAB/comp');
+    cd(root)
+    
+else
+    root = fileparts(root);
+end
+
+cd(root)
+
+
 plot_figure = true;
 redo_all = false;
 missing_data = false;
@@ -28,10 +44,12 @@ clear y Fs
 
 comp = 'comp';
 glob = '';
-matlab_dir = '/home/oren/Documents/MATLAB';
-data_dir = '/media/oren/D/data';
-root = fullfile(matlab_dir, comp);
-comp_dir = fullfile(data_dir, comp);
+PycharmProjects_dir = fullfile('/home', username, 'PycharmProjects');
+matlab_dir = fullfile('/home', username, 'Documents', 'MATLAB');
+lib_data = fullfile('/media', username, 'D', 'data');
+PycharmProjects = fullfile('/home', username, 'PycharmProjects')
+
+comp_dir = fullfile(lib_data, comp);
 sechistory_dir = fullfile(comp_dir, [glob, 'sechistory']);
 secd_dir = fullfile(comp_dir, [glob, 'secd']);
 secd_proc_dir = fullfile(comp_dir, [glob, 'secd_proc']);
@@ -44,9 +62,6 @@ addpath(fullfile(matlab_dir, 'my_functions'))
 addpath(fullfile(matlab_dir, 'altmany-export_fig-410f0ad'))
 
 
-cd (root)
-addpath('/home/oren/Documents/MATLAB/my_functions')
-
 run('var_types.m') % Variables types mapping
 
 
@@ -55,14 +70,14 @@ run('load_security.m')
 run('load_sechistory.m')
 run('load_currency.m')
 
-%load('/media/oren/D/data/ir/TB.mat')
+%load(fullfile(lib_data, 'ir', 'TB.mat'))
 %run('TBill.m') % risk free rate table, TB
 %run('identification.m') % load company/security specific variables (dicts)
-fpath = '/media/oren/D/data/ir/DTB';
+fpath = fullfile(lib_data, 'ir', 'DTB');
 
 [R_f, R_f_metadata] = load_data_files('DTB3', fpath, 'FRED');
 
-fpath = '/home/oren/PycharmProjects/wrds_get_data/xpressfeed/metadata.csv';
+fpath = fullfile(PycharmProjects_dir, 'wrds_get_data', 'xpressfeed', 'metadata.csv');
 opts = detectImportOptions(fpath);
 opts.VariableTypes = repmat({'char'}, size(opts.VariableTypes));
 
@@ -111,7 +126,7 @@ clc
 run('var_types.m')
 
 gvkey_i_start = 1;
-fpath = '/home/oren/PycharmProjects/comp/gvkey_set_lctq.csv';
+fpath = fullfile(PycharmProjects_dir, 'comp', 'gvkey_set_lctq.csv')
 opts = detectImportOptions(fpath);
 opts.VariableTypes = {'char'};
 gvkeys = readtable(fpath, opts);
@@ -129,7 +144,7 @@ gvkeys = gvkeys(~cellfun(@isempty, gvkeys));
 %}
 
 %{
-fpath = '/home/oren/PycharmProjects/comp/redo_gvkeys_secd_proc.csv';
+fpath = fullfile(PycharmProjects_dir, 'comp', 'redo_gvkeys_secd_proc.csv')
 opts = detectImportOptions(fpath);
 opts.VariableTypes = {'char'};
 redo_gvkeys = readtable(fpath, opts);

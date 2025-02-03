@@ -26,8 +26,23 @@ clear; clc
 
 project = 'comp';
 
-matlab_dir = '/home/oren/Documents/MATLAB';
-data_dir = '/media/oren/D/data';
+% set root
+username = getenv("USER");
+root = mfilename('fullpath');
+if contains(root, 'LiveEditor') || numel(root) == 0
+    % in case you're running via LiveEditor, default to root
+    % change this line if running on a different system
+    root = fullfile('/home', username, 'Documents/MATLAB/comp');
+    cd(root)
+    
+else
+    root = fileparts(root);
+end
+
+cd(root)
+
+matlab_dir = fullfile('/home', username, 'Documents', 'MATLAB')
+data_dir = fullfile('/media', username, 'D', 'data')
 
 
 root = fullfile(matlab_dir, project);
@@ -36,8 +51,6 @@ fundq_dir = fullfile(comp_dir, 'fundq');
 
 addpath(fullfile(matlab_dir, 'my_functions'))
 addpath(fullfile(matlab_dir, 'altmany-export_fig-410f0ad'))
-
-cd (root)
 
 
 

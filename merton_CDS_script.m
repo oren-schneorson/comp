@@ -6,16 +6,33 @@ The first step in implementing the Merton DD model is to estimate sigma_E from
 either historical stock returns data or from option-implied volatility data.
 %}
 
-addpath('/home/oren/Documents/MATLAB/altmany-export_fig-410f0ad')
-addpath('/home/oren/Documents/MATLAB/my_functions')
+% set root
+username = getenv("USER");
+root = mfilename('fullpath');
+if contains(root, 'LiveEditor') || numel(root) == 0
+    % in case you're running via LiveEditor, default to root
+    % change this line if running on a different system
+    root = fullfile('/home', username, 'Documents/MATLAB/comp');
+    cd(root)
+    
+else
+    root = fileparts(root);
+end
+
+cd(root)
+
+
+addpath(fullfile('/home', username, 'Documents', 'MATLAB', 'altmany-export_fig-410f0ad'))
+addpath(fullfile('/home', username, 'Documents', 'MATLAB', 'my_functions'))
+
 
 glob = '';
-CDS_dir = '/media/oren/D/data/CDS';
-comp_dir = '/media/oren/D/data/comp';
+
+lib_data = fullfile('/media', username, 'D', 'data');
+CDS_dir = fullfile('/media', username, 'D', 'data', 'CDS');
+comp_dir = fullfile(lib_data, 'comp');
 
 secd_proc_dir = fullfile(comp_dir, [glob, 'secd_proc']);
-root = '/home/oren/Documents/MATLAB/comp';
-cd(root)
 
 
 load handel.mat;
@@ -37,7 +54,7 @@ Ccy = 'USD';
 DocClause = 'CR14';
 
 
-fpath = '/media/oren/D/data/ir/DGS1.csv';
+fpath = fullfile(lib_data, 'ir', 'DGS1.csv');
 DGS1 = readtable(fpath);
 DGS1 = renamevars(DGS1, 'DATE', 'datadate');
 DGS1 = table2timetable(DGS1);
@@ -76,7 +93,7 @@ merton_CDS_dir = fullfile(comp_dir, [glob, 'merton_CDS']);
 fundq_proc_dir = fullfile(comp_dir, [glob, 'fundq']);
 
 
-fpath = '/home/oren/PycharmProjects/comp/gvkey_set_lctq.csv';
+fpath = fullfile('/home', username, 'PycharmProjects', 'comp', 'gvkey_set_lctq.csv');
 opts = detectImportOptions(fpath);
 opts.VariableTypes = {'char'};
 gvks = readtable(fpath, opts);

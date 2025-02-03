@@ -2,7 +2,8 @@
 if ~exist('var_type', 'var')
     run('var_types.m') % Variables types mapping
 end
-fx_dir = '/media/oren/D/data/fx';
+
+fx_dir = fullfile(lib_data, 'fx');
 
 %%
 fpath = fullfile(fx_dir, 'fx_daily.csv');

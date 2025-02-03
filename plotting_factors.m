@@ -12,25 +12,29 @@ TODO:
 
 %}
 
+% set root
+username = getenv("USER");
 root = mfilename('fullpath');
-
-
 if contains(root, 'LiveEditor') || numel(root) == 0
     % in case you're running via LiveEditor, default to root
-    %root = 'C:\Users\U70O\Documents\MATLAB';
-    root = '/home/u70o/Documents/MATLAB/comp';
+    % change this line if running on a different system
+    root = fullfile('/home', username, 'Documents/MATLAB/comp');
+    cd(root)
     
 else
     root = fileparts(root);
 end
 
 cd(root)
-addpath('/home/u70o/Documents/MATLAB/my_functions')
-addpath('/home/u70o/Documents/MATLAB/altmany-export_fig-410f0ad/')
 
-lib_data = '/media/u70o/D/data';
-lib_matlab = '/home/u70o/Documents/MATLAB';
-lib_pycharm = '/home/u70o/PycharmProjects';
+
+lib_matlab = fullfile('/home', username, 'Documents', 'MATLAB');
+lib_data = fullfile('/media', username, 'D', 'data');
+lib_pycharm = fullfile('/home', username, 'PycharmProjects');
+
+addpath(fullfile(matlab_dir, 'my_functions'))
+addpath(fullfile(matlab_dir, 'altmany-export_fig-410f0ad'))
+
 
 
 %dims = {'mcap', 'stage1'}
@@ -109,11 +113,11 @@ max_date = max(ret_index.datadate);
 
 head(xret_index)
 
-[MKT, ~] = load_data_files('MKT', '/media/u70o/D/data/fama_french_factors', 'FRED');
+[MKT, ~] = load_data_files('MKT', fullfile(lib_data, 'fama_french_factors'), 'FRED');
 MKT.Properties.VariableNames{1} = 'datadate';
-[HML, ~] = load_data_files('HML', '/media/u70o/D/data/fama_french_factors', 'FRED');
+[HML, ~] = load_data_files('HML', fullfile(lib_data, 'fama_french_factors'), 'FRED');
 HML.Properties.VariableNames{1} = 'datadate';
-[SMB, ~] = load_data_files('SMB', '/media/u70o/D/data/fama_french_factors', 'FRED');
+[SMB, ~] = load_data_files('SMB', fullfile(lib_data, 'fama_french_factors'), 'FRED');
 SMB.Properties.VariableNames{1} = 'datadate';
 
 
@@ -159,7 +163,7 @@ clear U S
 clc
 
 % load stage1 regressor:
-fpath_full_arima = '/home/u70o/Documents/MATLAB/comp/full_arima_101.csv';
+fpath_full_arima = fullfile(lib_comp, 'full_arima_101.csv');
 full_arima = readtable(fpath_full_arima);
 full_arima.Properties.VariableNames = [{'datadate'}, full_arima.Properties.VariableNames(2:end)];
 %full_arima.loc[:, 'datadate'] = pd.to_datetime(full_arima.loc[:, 'datadate'])
