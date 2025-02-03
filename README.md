@@ -1,4 +1,4 @@
-This project is a collection of Matlab scripts that handle Compustat data. Contains the following files:
+# This project is a collection of Matlab scripts that handle Compustat data. Contains the following files:
 
 Main files for general or specific operations.
 main.m
@@ -7,7 +7,7 @@ Main is currently written to load data and run stage1 regressions, but its struc
 
 Auxiliary files
 preamble.m
-# A general preabmle script that sets up variables to all direcotries and loads all lightweight auxliary files (for example trading days of NYSE stock market) + metadata for Compustat security level data:
+## A general preabmle script that sets up variables to all direcotries and loads all lightweight auxliary files (for example trading days of NYSE stock market) + metadata for Compustat security level data:
 1. company level metadata
 2. security level metadata
 
